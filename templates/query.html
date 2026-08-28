@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>🔍 查询批号</h1>
+    <form method="POST" action="/query">
+        <label>批号：</label>
+        <input type="text" name="批号" required>
+        <button type="submit">查询</button>
+    </form>
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>✏️ 录入新批记录</h1>
+    <form method="POST" action="/new">
+        <label>批号：</label>
+        <input type="text" name="批号" required>
+        <br><br>
+        <label>收率：</label>
+        <input type="text" name="收率" required>
+        <br><br>
+        <button type="submit">保存</button>
+    </form>
+{% endblock %}

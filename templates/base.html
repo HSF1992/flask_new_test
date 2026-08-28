@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>批记录管理系统</title>
+    <style>
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 30px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h1 {
+            color: #1e2a3a;
+            border-bottom: 2px solid #e6edf5;
+            padding-bottom: 10px;
+        }
+        a {
+            color: #2b6c9e;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th {
+            background-color: #eef2f7;
+            text-align: left;
+            padding: 10px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e6edf5;
+        }
+        input, button {
+            padding: 8px 14px;
+            font-size: 16px;
+            border: 1px solid #d0d9e6;
+            border-radius: 6px;
+        }
+        button {
+            background-color: #2b6c9e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1f5177;
+        }
+        .nav {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #e6edf5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+        <div class="nav">
+            <a href=" ">← 返回首页</a >
+        </div>
+    </div>
+</body>
+</html>

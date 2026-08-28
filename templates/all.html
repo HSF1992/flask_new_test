@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>📋 所有批记录</h1>
+
+    {% if 数据 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>批号</th>
+                    <th>收率</th>
+                    <th>结果</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for 行 in 数据 %}
+                <tr>
+                    <td>{{ 行[0] }}</td>
+                    <td>{{ 行[1] }}</td>
+                    <td>{{ 行[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>暂无数据</p >
+    {% endif %}
+{% endblock %}

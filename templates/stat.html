@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>📊 统计合格率</h1>
+
+    {% if 总批数 == 0 %}
+        <p>暂无数据，请先录入批记录。</p >
+    {% else %}
+        <ul>
+            <li><strong>总批数：</strong>{{ 总批数 }}</li>
+            <li><strong>合格批数：</strong>{{ 合格批数 }}</li>
+            <li><strong>合格率：</strong>{{ 合格率 }}%</li>
+        </ul>
+    {% endif %}
+{% endblock %}
