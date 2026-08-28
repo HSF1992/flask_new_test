@@ -1,3 +1,4 @@
+import csv
 def 读取所有数据():
     try:
         with open("批记录.csv",mode="r",encoding="utf-8") as 文件:
@@ -21,7 +22,7 @@ def 查找批号(批号):
                 if i[0]==批号:
                     批信息=[批号,i[1],i[2]]
                     return 批信息
-                return []
+            return []
     except FileNotFoundError:
         return []
  
