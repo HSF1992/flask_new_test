@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>按日期查找批记录</h1>
+    <form method="POST" action="/search_by_date">
+        <label>查询此日期以后的记录</label>
+        <input type="date" name="目标日期" required>
+        <button type="submit">查询</button>
+    </form>
+{% endblock %}

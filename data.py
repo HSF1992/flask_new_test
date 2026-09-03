@@ -1,29 +1,47 @@
-import csv
+import pymysql
+
+DB_CONFIG = {
+    'host':'localhost',
+    'user':'app_user',
+    'password':'123456',
+    'database':'批记录',
+    'charset':'utf8mb4'
+}
+def 获取连接():
+    return pymysql.connect(**DB_CONFIG)
+def 初始化数据库():
+    连接 = 获取连接()
+    游标 = 连接.cursor()
+    游标.execute('''
+        CREATE TABLE IF NOT EXISTS 批记录(
+            批号 VARCHAR(50),
+            收率 FLOAT,
+            结果 VARCHAR(10),
+            日期 DATE
+        )
+    ''')
+    连接.commit()
+    连接.close()
 def 读取所有数据():
-    try:
-        with open("批记录.csv",mode="r",encoding="utf-8") as 文件:
-            阅读器=csv.reader(文件)
-            表头_=next(阅读器)
-            return list(阅读器)
-    except FileNotFoundError:
-        return []
-def 追加记录(批号,收率,结果):
-    with open("批记录.csv",mode="a",newline="",encoding="utf-8") as 文件:
-        写入器=csv.writer(文件)
-        if 文件.tell()==0:
-            写入器.writerow(["批号","收率","结果"])
-        写入器.writerow([批号,收率,结果])
-def 查找批号(批号):
-    try:
-        with open("批记录.csv",mode="r",encoding="utf-8") as 文件:
-            reader=csv.reader(文件)
-            表头_=next(reader)
-            for i in reader:
-                if i[0]==批号:
-                    批信息=[批号,i[1],i[2]]
-                    return 批信息
-            return []
-    except FileNotFoundError:
-        return []
- 
-        
+    初始化数据库()
+    连接 = 获取连接()
+    游标 = 连接.cursor()
+    游标.execute('select * from 批记录')
+    数据 = 游标.fetchall()
+    连接.close()
+    return 数据
+
+def 追加记录(批号,收率,结果,日期):
+    if 日期 is None:
+         from datetime import datetime
+         日期 = datetime.now().strftime('%Y-%m-%d')
+    初始化数据库()
+    连接 = 获取连接()
+    游标 = 连接.cursor()
+    游标.execute(
+        'INSERT INTO 批记录 (批号,收率,结果,日期) VALUES (%s,%s,%s,%s)',
+        (批号,收率,结果,日期)
+    )
+    连接.commit()
+    连接.close()
+

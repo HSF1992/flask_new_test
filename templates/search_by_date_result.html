@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>📋 所有批记录</h1>
-
+    <h1>查询结果</h1>
     {% if 数据 %}
         <table>
             <thead>
@@ -12,19 +11,20 @@
                     <th>结果</th>
                     <th>日期</th>
                 </tr>
-            </thead>
+            </head>
             <tbody>
-                {% for 行 in 数据 %}
+                {% for i in 数据 %}
                 <tr>
-                    <td>{{ 行[0] }}</td>
-                    <td>{{ 行[1] }}</td>
-                    <td>{{ 行[2] }}</td>
-                    <td>{{ 行[3] }}</td>
+                    <td>{{ i[0] }}</td>
+                    <td>{{ i[1] }}</td>
+                    <td>{{ i[2] }}</td>
+                    <td>{{ i[3] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p>暂无数据</p >
+        <p>在{{ 日期 }}之后没有找到记录</p>
     {% endif %}
 {% endblock %}
+
