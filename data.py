@@ -7,8 +7,10 @@ DB_CONFIG = {
     'database':'批记录',
     'charset':'utf8mb4'
 }
+
 def 获取连接():
     return pymysql.connect(**DB_CONFIG)
+
 def 初始化数据库():
     连接 = 获取连接()
     游标 = 连接.cursor()
@@ -20,8 +22,17 @@ def 初始化数据库():
             日期 DATE
         )
     ''')
+    游标.execute('''
+	CREATE TABLE IF NOT EXISTS users(
+	    id INT AUTO_INCREMENT PRIMARY KEY,
+	    username VARCHAR(50) UNIQUE NOT NULL,
+	    password_hash VARCHAR(200) NOT NULL,
+	    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+	)
+    ''')
     连接.commit()
     连接.close()
+
 def 读取所有数据():
     初始化数据库()
     连接 = 获取连接()
