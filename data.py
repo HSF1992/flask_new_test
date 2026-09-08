@@ -23,12 +23,12 @@ def 初始化数据库():
         )
     ''')
     游标.execute('''
-	CREATE TABLE IF NOT EXISTS users(
-	    id INT AUTO_INCREMENT PRIMARY KEY,
-	    username VARCHAR(50) UNIQUE NOT NULL,
-	    password_hash VARCHAR(200) NOT NULL,
-	    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-	)
+		CREATE TABLE IF NOT EXISTS users(
+	 	   id INT AUTO_INCREMENT PRIMARY KEY,
+	 	   username VARCHAR(50) UNIQUE NOT NULL,
+	  	   password_hash VARCHAR(200) NOT NULL,
+		   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+		)
     ''')
     连接.commit()
     连接.close()
