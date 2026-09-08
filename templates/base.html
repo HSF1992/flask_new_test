@@ -70,7 +70,9 @@
     <div class="container">
         {% block content %}{% endblock %}
         <div class="nav">
-            <a href="/">← 返回首页</a >
+            {% if request.endpoint != 'auth.login' and request.endpoint != 'auth.register' %}
+                <a href="/">← 返回首页</a >
+            {% endif %}
         </div>
     </div>
 </body>
