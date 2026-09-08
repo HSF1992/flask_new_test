@@ -8,6 +8,7 @@ import data as dt
 
 app=Flask(__name__)
 app.secret_key = "Hsf110612"
+app.config['session_permanent'] = False
 
 login_manager = LoginManager()
 login_manager.init_app(app)
