@@ -42,10 +42,10 @@ def 追加记录():
 @login_required
 def 所有数据():
     if current_user.role == 'admin':
-        数据 = dt.读取所有数据()
+        数据 = dt.执行查询('SELECT * FROM 批记录')
     else:
-        数据 = dt.读取所有数据()
-        数据 = [i for i in 数据 if i[4] == current_user.id]
+        user_id = current_user.id
+        数据 = dt.执行查询('SELECT * FROM 批记录 WHERE user_id = %s',(user_id,))
     return render_template('/all.html',数据 = 数据)
 
 @page_bp.route('stat',methods = ['GET','POST'])
@@ -57,6 +57,13 @@ def 统计():
         return render_template('/stat.html',总批数 = 总批数,合格批数 = 合格批数,合格率 = 合格率)
     else:
         return redirect(url_for('page.message',message = '暂无权限查看记录！'))
+
+@page_bp.route('user_inf',methods = ['GET'])
+@login_required
+def user_inf():
+    username = current_user.username
+    当前用户信息 = dt.执行查询('SELECT * FROM users WHERE username = %s',(username,))
+    return render_template('user_inf.html',当前用户信息=当前用户信息)
 
 @page_bp.route('message/<message>',methods = ['GET'])
 @login_required
