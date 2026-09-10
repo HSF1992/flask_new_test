@@ -25,7 +25,7 @@ app.register_blueprint(admin_bp)
 def load_user(user_id):
     用户数据 = dt.执行查询("SELECT * FROM users WHERE id = %s",(user_id,))
     if 用户数据:
-        return user(用户数据[0][0],用户数据[0][1],用户数据[0][3])
+        return user(用户数据[0][0],用户数据[0][1],用户数据[0][4])
     return None
 
 if __name__ =='__main__':
