@@ -19,7 +19,8 @@ def 初始化数据库():
             批号 VARCHAR(50),
             收率 FLOAT,
             结果 VARCHAR(10),
-            日期 DATE
+            日期 DATE,
+            user_id INT
         )
     ''')
     游标.execute('''
@@ -42,7 +43,7 @@ def 读取所有数据():
     连接.close()
     return 数据
 
-def 追加记录(批号,收率,结果,日期):
+def 追加记录(批号,收率,结果,日期,user_id):
     if 日期 is None:
          from datetime import datetime
          日期 = datetime.now().date().strptime('%Y-%m-%d')
@@ -50,8 +51,8 @@ def 追加记录(批号,收率,结果,日期):
     连接 = 获取连接()
     游标 = 连接.cursor()
     游标.execute(
-        'INSERT INTO 批记录 (批号,收率,结果,日期) VALUES (%s,%s,%s,%s)',
-        (批号,收率,结果,日期)
+        'INSERT INTO 批记录 (批号,收率,结果,日期,user_id) VALUES (%s,%s,%s,%s,%s)',
+        (批号,收率,结果,日期,user_id)
     )
     连接.commit()
     连接.close()

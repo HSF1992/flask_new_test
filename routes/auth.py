@@ -17,7 +17,7 @@ def register():
 
         password_hash = generate_password_hash(password)
         dt.执行插入(
-            'INSERT INTO users (username,password_hash) VALUES (%s,%s)',
+            'INSERT INTO users (username,password_hash,role) VALUES (%s,%s,"user")',
             (username,password_hash)
         )
         return redirect(url_for('auth.login'))
@@ -35,7 +35,7 @@ def login():
             (username,)
         )
         if 用户数据 and check_password_hash(用户数据[0][2],password):
-            用户对象 = user(用户数据[0][0],用户数据[0][1])
+            用户对象 = user(用户数据[0][0],用户数据[0][1],用户数据[0][3])
             login_user(用户对象)
             return redirect(url_for('page.首页'))
         else:
@@ -49,7 +49,7 @@ def logout():
     return redirect(url_for('auth.login'))
 
 class user(UserMixin):
-    def __init__(self,id,username):
+    def __init__(self,id,username,role):
         self.id = id
         self.username = username
-
+        self.role = role
