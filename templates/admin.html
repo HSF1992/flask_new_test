@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>⚙️ 管理员后台</h1>
+
+    <h2>所有用户</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>角色</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for 用户 in 用户信息 %}
+            <tr>
+                <td>{{ 用户[0] }}</td>
+                <td>{{ 用户[1] }}</td>
+                <td>{{ 用户[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>所有批记录</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>批号</th>
+                <th>收率</th>
+                <th>结果</th>
+                <th>日期</th>
+                <th>录入人ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for 行 in 数据 %}
+            <tr>
+                <td>{{ 行[0] }}</td>
+                <td>{{ 行[1] }}</td>
+                <td>{{ 行[2] }}</td>
+                <td>{{ 行[3] }}</td>
+                <td>{{ 行[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

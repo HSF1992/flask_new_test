@@ -4,6 +4,7 @@ from routes.page import page_bp
 from routes.api import api_bp
 from routes.search import search_bp
 from routes.auth import auth_bp,user
+from routes.admin import admin_bp
 import data as dt
 
 app=Flask(__name__)
@@ -18,6 +19,7 @@ app.register_blueprint(page_bp)
 app.register_blueprint(api_bp)
 app.register_blueprint(search_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(admin_bp)
 
 @login_manager.user_loader
 def load_user(user_id):

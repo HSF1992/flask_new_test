@@ -5,10 +5,12 @@ import service as sv
 from datetime import datetime
 
 page_bp = Blueprint('page',__name__,url_prefix = '/')
+
 @page_bp.route('/')
 @login_required
 def 首页():
     return render_template('index.html')
+
 @page_bp.route('/query',methods = ['GET','POST'])
 @login_required
 def 查询():
@@ -21,6 +23,7 @@ def 查询():
             else:
                 return redirect(url_for('page.message',message = f'无批号：{批号}数据!'))
     return render_template('/query.html')
+
 @page_bp.route('new',methods = ['GET','POST'])
 @login_required
 def 追加记录():
@@ -44,6 +47,7 @@ def 所有数据():
         数据 = dt.读取所有数据()
         数据 = [i for i in 数据 if i[4] == current_user.id]
     return render_template('/all.html',数据 = 数据)
+
 @page_bp.route('stat',methods = ['GET','POST'])
 @login_required
 def 统计():
@@ -53,6 +57,7 @@ def 统计():
         return render_template('/stat.html',总批数 = 总批数,合格批数 = 合格批数,合格率 = 合格率)
     else:
         return redirect(url_for('page.message',message = '暂无权限查看记录！'))
+
 @page_bp.route('message/<message>',methods = ['GET'])
 @login_required
 def message(message = None):
