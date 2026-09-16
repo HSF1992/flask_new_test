@@ -6,31 +6,32 @@ import data as dt
 
 user_manager_bp = Blueprint('user_manager',__name__,url_prefix ="/admin")
 
-@user_manager_bp.route('update',methods =['POST','GET'])
+@user_manager_bp.route('password_check/<int:user_id>',methods = ['POST','GET'])
 @login_required
-def update_password(user_id):
-    if request.method == 'POST' and current_user.role == 'admin':
-        password = request.form['password']
+def password_check(user_id):
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if not password:
+            return '错误，没有数据！'
         row = dt.执行查询('SELECT password_hash FROM users WHERE id = %s',(user_id,))
         if  check_password_hash(row[0][0],password):
-            return render_template('password_update.html')
+            return render_template('password_update.html',user_id = user_id)
         else:
             return redirect(url_for('page.message',message = "密码错误"))
-    return render_template('/password_update.html')
+    return render_template('/password_check.html',user_id = user_id)
 
-@user_manager_bp.route('edit',methods = ['POST','GET'])
+@user_manager_bp.route('password_update/<int:user_id>',methods=['POST','GET'])
 @login_required
-def edit():
-    if current_user.role != 'admin':
-        return redirect(url_for('page.message',message = '您没有权限访问!'))
+def password_update(user_id):
     if request.method == 'POST':
-        username = request.form['username']
-        role = request.form['role']
-        dt.执行插入('UPDATE username = %s,role = %s FROM users WHERE id = %s',(username,role,user_id))
-        return redirect(url_for('admin.admin'))
-    return render_template('/edit.html')
-
-@user_manager_bp.route('delete',methods = ['POST','GET'])
+        password_new = request.form['password']
+        i = dt.执行查询('SELECT password_hash FROM users WHERE id = %s',(user_id,))
+        if check_password_hash(i[0][0],password_new):
+            return redirect(url_for('page.message',message = "新密码不能与原密码一致！"))
+        dt.执行插入('UPDATE users SET password_hash = %s WHERE id = %s',(password_new,user_id))
+        return redirect(url_for('page.message',message = '更新成功!'))
+    return render_template('/password_update.html')
+@user_manager_bp.route('delete/<int:user_id>',methods = ['POST','GET'])
 @login_required
 def delete(user_id):
     if current_user.role != 'admin':
@@ -38,5 +39,5 @@ def delete(user_id):
     if current_user.id == user_id:
         return redirect(url_for('page.message',message = '不能删除自己！'))
     dt.执行插入('DELETE FROM users WHERE id = %s',(user_id,))
-    return redirect(url_for('admin.admin'))
+    return redirect(url_for('page.message',message="删除成功！"))
 

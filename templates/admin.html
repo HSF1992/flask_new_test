@@ -20,9 +20,12 @@
                 <td>{{ 用户[1] }}</td>
                 <td>{{ 用户[3] }}</td>
                 <td>
-                    <a href="/admin/edit">编辑</a>
+                    <a href="/edit/{{ 用户[0] }}">编辑</a>
                     <form method="POST" action="/admin/delete/{{ 用户[0] }}" style="display:inline;">
                         <button type="submit" onclick="return confirm('确认删除？')">删除</button>
+                    </form>
+                    <form method="POST" action="/admin/password_check/{{ 用户[0] }}" style="display:inline;">
+                        <button type="submit" >修改密码</button>
                     </form>
                 </td>
             </tr>

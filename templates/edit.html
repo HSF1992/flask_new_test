@@ -2,11 +2,11 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>用户编辑</h1>
-    <form method="POST" action="/admin/edit/{{ 用户[0] }}">
-        <lable>用户名:</lable>
-        <input type="text" name="user_name" value="{{ 用户[1] }} required>
+    <form method="POST">
+        <label>用户名:</label>
+        <input type="text" name="username" value="{{ 用户[1] }}" required>
         <br>
-        <lable>权限：</lable>
+        <label>权限：</label>
         <select name="role">
             <option value="user" {% if 用户[3] == "user" %}selected{% endif %}>普通用户</option>
             <option value="admin" {% if 用户[3] == "admin" %}selected{% endif %}>超级用户</option>

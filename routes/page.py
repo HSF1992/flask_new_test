@@ -69,3 +69,23 @@ def user_inf():
 @login_required
 def message(message = None):
     return render_template('/message.html',message = message)
+
+@page_bp.route('edit/<user_id>',methods =['POST','GET'])
+@login_required
+def edit(user_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('page.message',message = '您无权修改数据！'))
+
+    if request.method == 'POST':
+        username = request.form['username']
+
+        check_name =len(dt.执行查询('SELECT username FROM users WHERE username = %s',(username,)))
+        if check_name-1 == 0:
+            return redirect(url_for('page.message',message = '用户名重复！'))
+
+        role = request.form['role']
+        dt.执行插入('UPDATE users SET username = %s,role = %s WHERE id = %s',(username,role,user_id))
+        return redirect(url_for('page.message',message = '更新成功！'))
+
+    用户 = dt.执行查询('SELECT * FROM users WHERE id = %s',(user_id,))
+    return render_template('/edit.html',用户=用户)
