@@ -5,6 +5,7 @@ from routes.api import api_bp
 from routes.search import search_bp
 from routes.auth import auth_bp,user
 from routes.admin import admin_bp
+from routes.user_manager import user_manager_bp
 import data as dt
 
 app=Flask(__name__)
@@ -20,6 +21,7 @@ app.register_blueprint(api_bp)
 app.register_blueprint(search_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(admin_bp)
+app.register_blueprint(user_manager_bp)
 
 @login_manager.user_loader
 def load_user(user_id):
