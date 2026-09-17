@@ -6,11 +6,14 @@ import data as dt
 
 user_manager_bp = Blueprint('user_manager',__name__,url_prefix ="/admin")
 
-@user_manager_bp.route('password_check/<int:user_id>',methods = ['POST','GET'])
+@user_manager_bp.route('/password_check/<int:user_id>',methods = ['POST','GET'])
 @login_required
 def password_check(user_id):
     if request.method == 'POST':
+        # print('数据：',request.form)
+        # print ('方式',request.method)
         password = request.form.get('password')
+        # print ('密码字段',password)
         if not password:
             return '错误，没有数据！'
         row = dt.执行查询('SELECT password_hash FROM users WHERE id = %s',(user_id,))
