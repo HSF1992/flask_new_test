@@ -7,6 +7,7 @@ from routes.auth import auth_bp,user
 from routes.admin import admin_bp
 from routes.user_manager import user_manager_bp
 import data as dt
+import os
 
 app=Flask(__name__)
 app.secret_key = "Hsf110612"
@@ -31,4 +32,4 @@ def load_user(user_id):
     return None
 
 if __name__ =='__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=os.getenv('PORT',default=5000),host="0.0.0.0")
