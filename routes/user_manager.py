@@ -34,6 +34,7 @@ def password_update(user_id):
         dt.执行插入('UPDATE users SET password_hash = %s WHERE id = %s',(password_new,user_id))
         return redirect(url_for('page.message',message = '更新成功!'))
     return render_template('/password_update.html')
+
 @user_manager_bp.route('delete/<int:user_id>',methods = ['POST','GET'])
 @login_required
 def delete(user_id):
